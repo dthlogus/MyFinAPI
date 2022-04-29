@@ -18,7 +18,7 @@ public class UsuarioRepositoryTest {
     private UsuarioRepository usuarioRepository;
 
     @Test
-    public void deveRetornarUmaThrowQuandoExistirEmail() {
+    public void deveRetornarTrueQuandoOEmailExistir() {
         Usuario usuario = Usuario.builder().nome("teste").email("usuario@email.com").build();
         usuarioRepository.save(usuario);
         Boolean existe = usuarioRepository.existsByEmail("usuario@email.com");
@@ -26,7 +26,7 @@ public class UsuarioRepositoryTest {
     }
 
     @Test
-    public void naoDeveRetornarUmaThrowSeNaoExistirOEmail() {
+    public void deveRetornarFalseQuandoOEmailNaoExistir() {
         usuarioRepository.deleteAll();
         Boolean existe = usuarioRepository.existsByEmail("usuario@email.com");
         Assertions.assertFalse(existe);
