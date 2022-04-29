@@ -1,5 +1,6 @@
 package com.darthlougs.MyFin.controller;
 
+import com.darthlougs.MyFin.dto.UsuarioAuthDTO;
 import com.darthlougs.MyFin.dto.UsuarioDTO;
 import com.darthlougs.MyFin.entity.Usuario;
 import com.darthlougs.MyFin.exception.RegraNegocioException;
@@ -36,7 +37,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/autenticar")
-    public Usuario autenticar(@RequestBody UsuarioDTO dto){
+    public Usuario autenticar(@RequestBody UsuarioAuthDTO dto){
         return service.autenticar(dto.getEmail(), dto.getSenha());
     }
 
