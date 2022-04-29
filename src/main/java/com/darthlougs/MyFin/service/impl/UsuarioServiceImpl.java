@@ -1,7 +1,7 @@
 package com.darthlougs.MyFin.service.impl;
 
 import com.darthlougs.MyFin.entity.Usuario;
-import com.darthlougs.MyFin.exception.ExceptionAutenticacao;
+import com.darthlougs.MyFin.exception.AutenticacaoException;
 import com.darthlougs.MyFin.exception.RegraNegocioException;
 import com.darthlougs.MyFin.repository.UsuarioRepository;
 import com.darthlougs.MyFin.service.UsuarioService;
@@ -14,19 +14,23 @@ import java.util.Optional;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-    @Autowired
     private UsuarioRepository repository;
+
+    @Autowired
+    public UsuarioServiceImpl(UsuarioRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Usuario autenticar(String email, String senha) {
         Optional<Usuario> usuario = repository.findByEmail(email);
 
         if (!usuario.isPresent()){
-            throw new ExceptionAutenticacao("Usuário não encontrado para o e-mail informado");
+            throw new AutenticacaoException("Usuário não encontrado para o e-mail informado");
         }
 
-        if (usuario.get().getSenha().equals(senha)){
-            throw new ExceptionAutenticacao("Senha inválida");
+        if (!usuario.get().getSenha().equals(senha)){
+            throw new AutenticacaoException("Senha inválida");
         }
 
         return usuario.get();
