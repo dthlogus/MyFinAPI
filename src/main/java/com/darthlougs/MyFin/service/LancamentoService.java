@@ -3,6 +3,7 @@ package com.darthlougs.MyFin.service;
 import com.darthlougs.MyFin.entity.Lancamento;
 import com.darthlougs.MyFin.entity.enums.StatusLancamento;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface LancamentoService {
@@ -18,4 +19,8 @@ public interface LancamentoService {
     void atualizarStatus(Lancamento lancamento, StatusLancamento status);
 
     void validar(Lancamento lancamento);
+
+    Lancamento buscarPorId(Long id);
+
+    BigDecimal obterSaldoPorUsuario(Long id);
 }

@@ -2,6 +2,7 @@ package com.darthlougs.MyFin.service.impl;
 
 import com.darthlougs.MyFin.entity.Usuario;
 import com.darthlougs.MyFin.exception.AutenticacaoException;
+import com.darthlougs.MyFin.exception.NaoEncontradoException;
 import com.darthlougs.MyFin.exception.RegraNegocioException;
 import com.darthlougs.MyFin.repository.UsuarioRepository;
 import com.darthlougs.MyFin.service.UsuarioService;
@@ -48,6 +49,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         if(repository.existsByEmail(email)){
             throw new RegraNegocioException("Já existe um usuário com esse email");
         }
+    }
+
+    @Override
+    public Usuario buscarPorId(Long id) {
+        Optional<Usuario> usuario = repository.findById(id);
+        return usuario.orElseThrow(() -> new NaoEncontradoException("Usuário não existe na base de dados"));
     }
 
 }
